@@ -143,10 +143,11 @@ import pulumi
 import pulumi_airflow as airflow
 
 # Configure the provider
+config = pulumi.Config()
 provider = airflow.Provider("my-provider",
     base_endpoint="https://my-airflow-instance/api/v1",
-    username="admin",
-    password=pulumi.Config().require_secret("airflow-password")
+    username=config.require("airflow-username"),
+    password=config.require_secret("airflow-password")
 )
 
 # Create a connection
