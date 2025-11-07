@@ -73,16 +73,16 @@ $ dotnet add package Pulumi.Airflow
 
 ## Configuration
 
-The `Provider` resource accepts the following configuration arguments:
+The Provider resource accepts the following configuration arguments:
 
-- `baseEndpoint` (Required): The base endpoint URL for the Airflow REST API (e.g., `https://my-airflow-instance/api/v1`)
-- `oauth2Token` (Optional): OAuth2 access token for API authentication (recommended for Google Cloud Composer 2)
-- `password` (Optional): Password for HTTP basic authentication
-- `username` (Optional): Username for HTTP basic authentication
+- **baseEndpoint** (Required): The base endpoint URL for the Airflow REST API (e.g., `https://my-airflow-instance/api/v1`)
+- **oauth2Token** (Optional): OAuth2 access token for API authentication (recommended for Google Cloud Composer 2)
+- **password** (Optional): Password for HTTP basic authentication
+- **username** (Optional): Username for HTTP basic authentication
 
 **Note**: You must provide either `oauth2Token` OR both `username` and `password` for authentication.
 
-These arguments can be passed as an object of type `ProviderArgs` to the `Provider` constructor.
+These arguments can be passed as an object of type `ProviderArgs` to the Provider constructor.
 
 ## Example Usage
 
@@ -98,7 +98,7 @@ import * as airflow from "@pulumi/airflow";
 
 const myProvider = new airflow.Provider("my-provider", {
     baseEndpoint: "https://my-airflow-instance/api/v1",
-    oauth2Token: "my-oauth2-token",
+    oauth2Token: process.env.AIRFLOW_OAUTH2_TOKEN,
 });
 
 // Use `myProvider` to create resources in your Pulumi program.
@@ -114,8 +114,8 @@ import * as airflow from "@pulumi/airflow";
 
 const myProvider = new airflow.Provider("my-provider", {
     baseEndpoint: "https://my-airflow-instance/api/v1",
-    username: "admin",
-    password: pulumi.secret("my-secure-password"),
+    username: "your-username",
+    password: pulumi.secret("your-secure-password"),
 });
 ```
 
